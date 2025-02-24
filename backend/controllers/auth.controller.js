@@ -1,6 +1,7 @@
 import User from './../models/user.model.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { sendWelcomeEmail } from '../emails/emailHandlers.js';
 
 
 export const signup = async (req, res) => {
@@ -8,6 +9,11 @@ export const signup = async (req, res) => {
         //Taking data from the body
         const { name, username, email, password } = req.body;
 
+        //Checking if all fields are filled
+        if(!name || !username || !email || !password){
+            return res.status(400).json({message:"All fields are required !! "});
+        }
+        
         //Checking if User with this EMAIL already exists or not...
         const existingEmail = await User.findOne({ email });
         if (existingEmail) {
@@ -55,6 +61,13 @@ export const signup = async (req, res) => {
 
         //TO-D0 Send WELCOME Mails
 
+        const profileUrl = process.env.CLIENT_URL + "/profile/" + user.username;
+        
+        try {
+            await sendWelcomeEmail(user.email, user.name, profileUrl );
+        } catch (error) {
+            console.error("Error in sending Welcome Email", error);
+        }
     } catch (error) {
         console.log("Error in Signup : ", error.message);
         res.status(500).json({ messgae: "Internal Server Error (Signup)" });
