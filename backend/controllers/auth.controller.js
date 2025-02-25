@@ -74,10 +74,47 @@ export const signup = async (req, res) => {
     }
 }
 
-export const login = (req, res) => {
-    res.send("login");
+export const login = async (req, res) => {
+    try {
+        const {username, password} = req.body;
+        
+        // Checking if the user exists 
+        const user = await User.findOne({username});
+        if(!user) {
+            return res.status(400).json({message:"User not found"});
+        }
+
+        //Check Password by comparing :
+        // password --> What the user entered
+        // user.password --> The hashed version stored in Database
+        const isMatch = await bcrypt.compare(password, user.password); 
+
+        if(!isMatch){
+            return res.status(400).json({message:"Please check your Username / Password"});
+        }
+
+        // Create Token and Login
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: "7d" });
+        res.cookie("jwt-linkedin", token, {
+            httpOnly: true,
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+            sameSite: "strict",
+            secure: process.env.NODE_ENV === "production"
+        });
+
+        res.status(201).json({ messgae: "Logged In Successfully !! " });
+ 
+    } catch (error) {
+        console.log("Error in SignIn : ", error.message);
+        res.status(500).json({ messgae: "Internal Server Error (SignIn)" });
+    }
 }
 
 export const logout = (req, res) => {
-    res.send("logout");
+    res.clearCookie("jwt-linkedin");
+    res.json({message:"Logged Out Successfully"});
+}
+
+export const getCurrentUser = ()=>{
+    
 }
