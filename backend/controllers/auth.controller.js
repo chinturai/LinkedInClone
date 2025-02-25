@@ -115,6 +115,11 @@ export const logout = (req, res) => {
     res.json({message:"Logged Out Successfully"});
 }
 
-export const getCurrentUser = ()=>{
-    
+export const getCurrentUser = async (req, res)=>{
+    try {
+        res.json(req.user);
+    } catch (error) {
+        console.log("Error in getting current user : ", error.message);
+        res.status(500).json({ messgae: "Internal Server Error (getCurrentUser)" });
+    }
 }
