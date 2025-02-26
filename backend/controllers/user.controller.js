@@ -1,4 +1,6 @@
 import User from "../models/user.model.js";
+import cloudinary from './../lib/cloudinary.js';
+
 
 //To display suggested users in right side homepage
 export const getSuggestedConnections = async (req, res) => {
@@ -61,8 +63,15 @@ export const updateProfile = async (req, res) => {
             }
         }
 
-        //ToDo Check for Images --> Uploading to cloudinary
-
+        //Check for Images (Profile Picture and Banner Image) --> Uploading to cloudinary
+        if(req.body.profilePicture){
+            const result = await cloudinary.uploader.upload(req.body.profilePicture);
+            updatedData.profilePicture = result.secure_url;
+        }
+        if(req.body.bannerImg){
+            const result = await cloudinary.uploader.upload(req.body.bannerImg);
+            updatedData.bannerImg = result.secure_url;
+        }
 
         //Update the user
         const user = await User.findByIdAndUpdate(req.user._id, { $set: updatedData }, { $new: true }).select("-password");
