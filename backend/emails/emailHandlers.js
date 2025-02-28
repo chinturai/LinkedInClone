@@ -19,7 +19,7 @@ export const sendWelcomeEmail = async (email, name, profileUrl) => {
 };
 
 export const sendCommentNotificationEmail = async(recipientEmail, recipientName, commenterName, postUrl, commentContent ) => {
-    const recipient = [{ email }];
+    const recipient = [{ email: recipientEmail }];
     try {
         const response = await mailtrapclient.send({
             from: sender,
@@ -30,6 +30,24 @@ export const sendCommentNotificationEmail = async(recipientEmail, recipientName,
         })
 
         console.log("Comment Notification Email sent successfully ! ");
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const sendConnectionAcceptedEmail = async (senderEmail , senderName , recipientName , profileUrl) => {
+    const recipient = [{ email: senderEmail}];
+
+    try {
+        const response = await mailtrapclient.send({
+            from: sender,
+            to: recipient,
+            subject:` ${recipientName} accepted your Connection Request !! (LinkedIn By Chintu Rai)`,
+            html: createConnectionAcceptedEmailTemplate(senderName , recipientName , profileUrl),
+            category:"connection_accepted"   
+        })
+
+        console.log("Connection Accepted Email sent successfully ! ");
     } catch (error) {
         throw error;
     }
