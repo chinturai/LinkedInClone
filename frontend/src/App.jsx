@@ -5,12 +5,11 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignUpPage from "./pages/auth/SignUpPage";
 import toast, { Toaster } from "react-hot-toast";
-import { useQuery , QueryClient } from "@tanstack/react-query";
+import { useQuery, QueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "./lib/axios";
 
 const App = () => {
-
-	//Implementing Protected Routes
+	
 	const { data: authUser, isLoading } = useQuery({
 		queryKey: ["authUser"],
 		queryFn: async () => {
@@ -19,13 +18,13 @@ const App = () => {
 				return res.data;
 			} catch (err) {
 				if (err.response && err.response.status === 401) {
-					return null; // Explicitly return null for unauthorized users
+					return null;
 				}
-				toast.error(err.response?.data?.message || "Something went wrong");
-				return null; // Ensure a value is always returned
+				toast.error(err.response.data.message || "Something went wrong");
 			}
 		},
 	});
+
 	console.log("Auth User ", authUser);
 	if (isLoading) return null;
 

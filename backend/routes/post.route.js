@@ -6,7 +6,7 @@ const router = express.Router();
 
 //Creating Routes related to posts
 router.get("/", protectRoute, getFeedPosts);
-router.get("/create", protectRoute, createPost);
+router.post("/create", protectRoute, createPost);
 router.delete("/delete/:id", protectRoute, deletePost);
 router.get("/:id", protectRoute, getPostById);
 router.get("/:id/comment", protectRoute, createComment);

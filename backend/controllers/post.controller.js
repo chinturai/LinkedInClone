@@ -6,7 +6,7 @@ import { sendCommentNotificationEmail } from '../emails/emailHandlers.js';
 export const getFeedPosts = async (req, res) => {
     try {
         const posts = await Post
-            .find({ author: { $in: req.user.connections } }) //Get the user's connections
+            .find({ author: { $in: [...req.user.connections, req.user._id] } }) //Get the user's connections and urs 
             .populate("author", "name username profilePicture headline") //Populate the post's AUTHOR's fields
             .populate("comments.user", "name profilePicture") //Populate the Comments with the fields
             .sort({ createdAt: -1 });// Sorts the posts in Latest to oldest order
@@ -162,11 +162,11 @@ export const likePost = async (req, res) => {
             //The filter method creates a new array by keeping only the elements that satisfy the given condition.
         }
         else // Else Like the post 
-        { 
+        {
             post.likes.push(userId);
 
             // Create a notification , when someone else likes the post , other than post owner
-            if( post.author.toString() !== userId.toString() ){
+            if (post.author.toString() !== userId.toString()) {
                 const newNotification = new Notification(
                     {
                         recipient: post.author,

@@ -9,8 +9,29 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 
-// Create a client
-const queryClient = new QueryClient()
+
+// Define a default query function that will receive the query key
+const defaultQueryFn = async ({ authUser }) => {
+  try {
+    const res = await axiosInstance.get("/auth/me");
+    return res.data;
+  } catch (err) {
+    if (err.response && err.response.status === 401) {
+      return null; // Explicitly return null for unauthorized users
+    }
+    toast.error(err.response?.data?.message || "Something went wrong");
+    return null; // Ensure a value is always returned
+  }
+}
+
+// provide the default query function to your app with defaultOptions
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      queryFn: defaultQueryFn,
+    },
+  },
+})
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
