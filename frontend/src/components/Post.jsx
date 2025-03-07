@@ -181,9 +181,9 @@ const Post = ({ post }) => {
             <button
               type='submit'
               className='bg-primary text-white p-2 rounded-r-full hover:bg-primary-dark transition duration-300'
-              disabled={isAddingComment}
+              disabled={isCreatingComment}
             >
-              {isAddingComment ? <Loader size={18} className='animate-spin' /> : <Send size={18} />}
+              {isCreatingComment ? <Loader size={18} className='animate-spin' /> : <Send size={18} />}
             </button>
           </form>
         </div>
