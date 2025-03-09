@@ -189,3 +189,20 @@ export const likePost = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error (likePost)" });
     }
 }
+
+export const getUserPosts = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        
+        const posts = await Post.find({ author: userId })
+            .populate("author", "name username profilePicture headline")
+            .populate("comments.user", "name profilePicture")
+            .sort({ createdAt: -1 });
+
+        res.status(200).json(posts);
+
+    } catch (error) {
+        console.error("Error in Post Controller (getUserPosts)", error.message);
+        res.status(500).json({ message: "Internal Server Error (getUserPosts)" });
+    }
+}

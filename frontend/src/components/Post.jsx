@@ -8,6 +8,8 @@ import { formatDistanceToNow } from "date-fns";
 import PostAction from "./PostAction";
 
 const Post = ({ post }) => {
+  const { postId } = useParams();
+
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
 
   const [showComments, setShowComments] = useState(false);
@@ -53,7 +55,8 @@ const Post = ({ post }) => {
       await axiosInstance.post(`/posts/${post._id}/like`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      queryClient.invalidateQueries({ queryKey: ["posts"] }); //Updating Like counts for all posts on feed
+      queryClient.invalidateQueries({ queryKey: ["post" , postId] }); // Updating like count for a single post on Individual Post Page
     },
   });
 
