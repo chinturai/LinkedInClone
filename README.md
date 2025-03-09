@@ -2,6 +2,26 @@
 
 A full-stack LinkedIn clone built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js) with modern features like authentication, payment integration, and social networking capabilities.
 
+## 📸 Demo Screenshots
+
+### Home Page
+![Home Page](./DemoPics/HomePage.png)
+
+### Post Interaction
+![Post Interaction](./DemoPics/Post.png)
+
+### Profile Header Section
+![Profile Header](./DemoPics/Profile_HeaderSec.png)
+
+### Profile Details Section
+![Profile Details](./DemoPics/Profile_DetailsSec.png)
+
+### Notifications
+![Notifications](./DemoPics/Notification_Section.png)
+
+### Connection Requests
+![Friend Requests](./DemoPics/FrndReq.png)
+
 ## 🚀 Features
 
 - 🗄️ **MongoDB Integration** - Efficient data storage and retrieval.
@@ -26,44 +46,92 @@ A full-stack LinkedIn clone built using the **MERN stack** (MongoDB, Express.js,
 - **Authentication:** JWT, bcrypt
 - **Email Service:** Mailtrap
 
-## 🔧 Installation & Setup
+## 🚀 Getting Started
 
-1. **Clone the Repository:**
+### Prerequisites
+- Node.js (v14 or higher)
+- MongoDB
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
    ```bash
-   git clone https://github.com/chinturai/LinkedInClone.git
-   cd LinkedInClone
+   git clone https://github.com/yourusername/linkedin-clone.git
+   cd linkedin-clone
    ```
 
-2. **Install Dependencies:**
+2. Install dependencies for both frontend and backend
    ```bash
+   # Install root dependencies
    npm install
-   cd client && npm install
+   
+   # Install frontend dependencies
+   cd frontend
+   npm install
+   
+   # Install backend dependencies
+   cd ../backend
+   npm install
    ```
 
-3. **Setup Environment Variables:**
-   Create a `.env` file in the root directory and add the following:
-   ```env
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret_key
-   STRIPE_SECRET=your_stripe_secret_key
-   SMTP_EMAIL=your_smtp_email
-   SMTP_PASSWORD=your_smtp_password
-   ```
+3. Set up environment variables
+   - Create a `.env` file in the backend directory based on the `.env.example` template
+   - Configure your MongoDB connection string, JWT secret, and other required variables
 
-4. **Run the Development Server:**
+4. Start the development servers
    ```bash
+   # Start backend server
+   cd backend
    npm run dev
+   
+   # Start frontend server (in a new terminal)
+   cd frontend
+   npm start
    ```
+
+5. Open your browser and navigate to `http://localhost:3000`
+
+## 🌟 Key Features Explained
+
+### Authentication System
+The application uses JWT (JSON Web Tokens) for secure authentication, allowing users to register, login, and maintain sessions securely.
+
+### Social Networking
+- **Connection Management**: Send, accept, or reject connection requests
+- **News Feed**: View and interact with posts from connections
+- **Notifications**: Real-time notifications for social interactions
+
+### Profile Management
+Users can create and customize their professional profiles with:
+- Profile pictures
+- Work experience
+- Education
+- Skills
+- About section
+
+### Post Interaction
+- Create text and image posts
+- Like and comment on posts
+- Share posts with your network
 
 ## 🤝 Contributing
 
-Feel free to fork this repository and submit pull requests for improvements.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📜 License
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-This project is open-source and available under the [MIT License](LICENSE).
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
 
 ---
 
-### ⭐ If you like this project, don't forget to give it a star! ⭐
+⭐️ If you found this project helpful, please give it a star on GitHub! ⭐️
+
 
