@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { axiosInstance } from "../lib/axios";
+import { Users } from "lucide-react";
 
 import Sidebar from "../components/Sidebar";
 import PostCreation from "../components/PostCreation";

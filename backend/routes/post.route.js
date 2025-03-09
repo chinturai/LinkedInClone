@@ -9,8 +9,8 @@ router.get("/", protectRoute, getFeedPosts);
 router.post("/create", protectRoute, createPost);
 router.delete("/delete/:id", protectRoute, deletePost);
 router.get("/:id", protectRoute, getPostById);
-router.get("/:id/comment", protectRoute, createComment);
-router.get("/:id/like", protectRoute, likePost);
+router.post("/:id/comment", protectRoute, createComment);
+router.post("/:id/like", protectRoute, likePost);
 
 
 export default router;

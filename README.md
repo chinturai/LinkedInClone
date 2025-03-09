@@ -7,7 +7,6 @@ A full-stack LinkedIn clone built using the **MERN stack** (MongoDB, Express.js,
 ## 🚀 Features
 
 - 🗄️ **MongoDB Integration** - Efficient data storage and retrieval.
-- 💳 **Stripe Payment Setup** - Secure payment handling.
 - 🔐 **Authentication System with JWT** - User authentication with JSON Web Tokens.
 - ✉️ **Welcome Emails** - Automated email system for new users.
 - 🎨 **Design with Tailwind & DaisyUI** - Beautiful and responsive UI.
@@ -27,7 +26,7 @@ A full-stack LinkedIn clone built using the **MERN stack** (MongoDB, Express.js,
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB
 - **Authentication:** JWT, bcrypt
-- **Email Service:** Nodemailer
+- **Email Service:** Mailtrap
 
 ## 🔧 Installation & Setup
 
