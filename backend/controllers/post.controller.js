@@ -3,10 +3,14 @@ import Notification from './../models/notification.model.js';
 import cloudinary from './../lib/cloudinary.js';
 import { sendCommentNotificationEmail } from '../emails/emailHandlers.js';
 
+
+//Line removed from getFeedPosts
+//.find({ author: { $in: [...req.user.connections, req.user._id] } }) //Get the user's connections and urs 
+
 export const getFeedPosts = async (req, res) => {
     try {
         const posts = await Post
-            .find({ author: { $in: [...req.user.connections, req.user._id] } }) //Get the user's connections and urs 
+            .find() // Get all posts instead of filtering by connections
             .populate("author", "name username profilePicture headline") //Populate the post's AUTHOR's fields
             .populate("comments.user", "name profilePicture") //Populate the Comments with the fields
             .sort({ createdAt: -1 });// Sorts the posts in Latest to oldest order
@@ -190,6 +194,7 @@ export const likePost = async (req, res) => {
     }
 }
 
+//Experimenting
 export const getUserPosts = async (req, res) => {
     try {
         const userId = req.params.userId;

@@ -1,5 +1,3 @@
-# This Project is Still Under Development 🔬🥼🧪
----
 # LinkedIn Clone - By Chintu Rai 🌐
 
 A full-stack LinkedIn clone built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js) with modern features like authentication, payment integration, and social networking capabilities.

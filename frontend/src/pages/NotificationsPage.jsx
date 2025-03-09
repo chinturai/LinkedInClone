@@ -82,7 +82,7 @@ const NotificationsPage = () => {
         return (
             <Link
                 to={`/post/${relatedPost._id}`}
-                className='mt-2 p-2 bg-gray-50 rounded-md flex items-center space-x-2 hover:bg-gray-100 transition-colors'
+                className='mt-2 p-2 bg-gray-50 rounded-md flex items-center space-x-2 hover:bg-gray-100 transition-colors overflow-hidden'
             >
                 {relatedPost.image && (
                     <img src={relatedPost.image} alt='Post preview' className='w-10 h-10 object-cover rounded' />
@@ -100,14 +100,14 @@ const NotificationsPage = () => {
             <div className='col-span-1 lg:col-span-1'>
                 <Sidebar user={authUser} />
             </div>
-            <div className='col-span-1 lg:col-span-3'>
-                <div className='bg-white rounded-lg shadow p-6'>
+            <div className='col-span-1 lg:col-span-3 overflow-hidden'>
+                <div className='bg-white rounded-lg shadow p-6 overflow-hidden'>
                     <h1 className='text-2xl font-bold mb-6'>Notifications</h1>
 
                     {isLoading ? (
                         <p>Loading notifications...</p>
                     ) : notifications && notifications.data.length > 0 ? (
-                        <ul>
+                        <ul className="overflow-hidden">
                             {notifications.data.map((notification) => (
                                 <li
                                     key={notification._id}
@@ -116,6 +116,7 @@ const NotificationsPage = () => {
                                 >
                                     <div className='flex items-start justify-between'>
                                         <div className='flex items-center space-x-4'>
+
                                             <Link to={`/profile/${notification.relatedUser.username}`}>
                                                 <img
                                                     src={notification.relatedUser.profilePicture || "/avatar.png"}
@@ -124,41 +125,42 @@ const NotificationsPage = () => {
                                                 />
                                             </Link>
 
-                                            <div>
+                                            <div className="overflow-hidden">
                                                 <div className='flex items-center gap-2'>
                                                     <div className='p-1 bg-gray-100 rounded-full'>
                                                         {renderNotificationIcon(notification.type)}
                                                     </div>
                                                     <p className='text-sm'>{renderNotificationContent(notification)}</p>
+                                                    <div className='flex gap-2'>
+                                                        {!notification.read && (
+                                                            <button
+                                                                onClick={() => markAsReadMutation(notification._id)}
+                                                                className='p-1 bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition-colors'
+                                                                aria-label='Mark as read'
+                                                            >
+                                                                <Eye size={16} />
+                                                            </button>
+                                                        )}
+
+                                                        <button
+                                                            onClick={() => deleteNotificationMutation(notification._id)}
+                                                            className='p-1 bg-red-100 text-red-600 rounded hover:bg-red-200 transition-colors'
+                                                            aria-label='Delete notification'
+                                                        >
+                                                            <Trash2 size={16} />
+                                                        </button>
+                                                    </div>
                                                 </div>
                                                 <p className='text-xs text-gray-500 mt-1'>
                                                     {formatDistanceToNow(new Date(notification.createdAt), {
                                                         addSuffix: true,
                                                     })}
                                                 </p>
-                                                {renderRelatedPost(notification.relatedPost)}
+                                                <div>{renderRelatedPost(notification.relatedPost)}</div>
                                             </div>
                                         </div>
 
-                                        <div className='flex gap-2'>
-                                            {!notification.read && (
-                                                <button
-                                                    onClick={() => markAsReadMutation(notification._id)}
-                                                    className='p-1 bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition-colors'
-                                                    aria-label='Mark as read'
-                                                >
-                                                    <Eye size={16} />
-                                                </button>
-                                            )}
 
-                                            <button
-                                                onClick={() => deleteNotificationMutation(notification._id)}
-                                                className='p-1 bg-red-100 text-red-600 rounded hover:bg-red-200 transition-colors'
-                                                aria-label='Delete notification'
-                                            >
-                                                <Trash2 size={16} />
-                                            </button>
-                                        </div>
                                     </div>
                                 </li>
                             ))}
